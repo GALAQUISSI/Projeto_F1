@@ -2,6 +2,8 @@ import pandas as pd
 import struct
 import binascii
 
+
+#esse caminho foi usado no notebook -> generalizar depois
 df = pd.read_csv(r'C:\Users\User\Formula1_Project\Data_interlagos_170226\lap.csv')
 
 #armazenar valores
