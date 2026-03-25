@@ -9,9 +9,16 @@ df = pd.read_csv(r'C:\Users\User\Formula1_Project\Data_interlagos_170226\lap.csv
 #armazenar valores
 tabela_vazia = []
 
-#calculo do offset: header + (id_carro * 57), em lap_data cada carro utiliza 57 bytes
-# 29 + (19 * 60) = 1112
-posicao_inicial = 1112
+#calculo automatico posicao inicial
+#como cada pacote o carro possui um diferente tipo de tamanho para os carros
+#para lap, cada carro possui 57 bytes de informação
+
+linha_base = df.iloc[0]['raw_hex']
+linha_binaria = binascii.unhexlify(linha_base)
+header = 29 #padrao pela EA Documentation
+car_id = linha_binaria[27]
+
+posicao_inicial = header + (car_id * 57)
 
 for i in range(len(df)):
     #transfromar em binario

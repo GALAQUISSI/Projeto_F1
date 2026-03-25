@@ -2,14 +2,20 @@ import pandas as pd
 import binascii
 import struct
 
-df = pd.read_csv(r"C:\Projeto_f1\dados_interlagos_170226\status.csv")
+df = pd.read_csv(r"C:\Users\User\Projeto_F1\dados_interlagos_170226\status.csv")
 
 tabela_vazia = []
 
-#calculo offset, 22 carros, cada carro possui 55 bytes
-#offset  = header + (id_car * 55) = 29 + (19 * 55) = 1074
+#calculo automatico posicao inicial
+#como cada pacote o carro possui um diferente tipo de tamanho para os carros
+#para status, cada carro possui 55 bytes de informação
 
-posicao_inicial = 1074
+linha_base = df.iloc[0]['raw_hex']
+linha_binaria = binascii.unhexlify(linha_base)
+header = 29 #padrao pela EA Documentation
+car_id = linha_binaria[27]
+
+posicao_inicial = header + (car_id * 55)
 
 for i in range(len(df)):
     #escopo raw_text

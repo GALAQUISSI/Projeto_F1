@@ -7,9 +7,17 @@ df = pd.read_csv(r'C:\Projeto_f1\dados_interlagos_170226\motion.csv')
 #tabela armazenar dados
 tabela_vazia = []
 
-#calcular offset
-#60 bytes por carro, 22 carros (meu indice = 19), header (29 bytes) -> 29 + (19 * 60) = 1169
-posicao_inicial = 1169
+#calculo automatico posicao inicial
+#como cada pacote o carro possui um diferente tipo de tamanho para os carros
+#para motion, cada carro possui 60 bytes de informação
+
+linha_base = df.iloc[0]['raw_hex']
+linha_binaria = binascii.unhexlify(linha_base)
+header = 29 #padrao pela EA Documentation
+car_id = linha_binaria[27]
+
+posicao_inicial = header + (car_id * 60)
+
 
 for i in range (len(df)):
     #transformar em binario

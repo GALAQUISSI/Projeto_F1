@@ -7,10 +7,16 @@ df = pd.read_csv(r'C:\Projeto_f1\dados_interlagos_170226\telemetry.csv')
 #tabela para armazenar valores
 tabela_vazia = []
 
-#definindo offset (onde o meu carro começa)
-#header (29) + 19 carros * 60 bytes (cada carro usa 60 bytes)
-# 29 + (19 * 60) = 1169 bytes
-posicao_inicial = 1169
+#calculo automatico posicao inicial
+#como cada pacote o carro possui um diferente tipo de tamanho para os carros
+#para telemetry, cada carro possui 60 bytes de informação
+
+linha_base = df.iloc[0]['raw_hex']
+linha_binaria = binascii.unhexlify(linha_base)
+header = 29 #padrao pela EA Documentation
+car_id = linha_binaria[27]
+
+posicao_inicial = header + (car_id * 60)
 
 for i in range(len(df)):
     #coluna raw_hex -> binario
