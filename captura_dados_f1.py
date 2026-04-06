@@ -38,7 +38,7 @@ def packet_id(data):
 
 
 while True:
-    # data, _, esse _ é o endereço do remetente
+    # | data, _ | Esse _ é o endereço do remetente
     data, _ = sock.recvfrom(4096)
 
     pid = packet_id(data)
