@@ -18,10 +18,12 @@ car_id = linha_binaria[27]
 
 posicao_inicial = header + (car_id * 60)
 
-for i in range(len(df)):
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+#otimização para codigo, percorrer lista ao inves de percorrer o Dataframe
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
     #coluna raw_hex -> binario
-    #selecionando linhas i e coluna raw_hex
-    texto_hex = df.iloc[i]['raw_hex']
     dados_binarios = binascii.unhexlify(texto_hex)
 
     meu_carro = dados_binarios[posicao_inicial : posicao_inicial + 60]
@@ -51,7 +53,7 @@ for i in range(len(df)):
     tipo_superfice = struct.unpack('<BBBB', meu_carro[56:60])
 
     linha = {
-        'tempo': df.iloc[i]['time'],
+        'tempo': tempo,
         'velocidade': velocidade,
         'acelerador': acelerador,
         'volante': volante,

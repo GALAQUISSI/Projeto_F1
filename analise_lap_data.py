@@ -20,12 +20,13 @@ car_id = linha_binaria[27]
 
 posicao_inicial = header + (car_id * 57)
 
-for i in range(len(df)):
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
     #transfromar em binario
-    #definir escopo
-    texto_raw = df.iloc[i]['raw_hex']
     #transformar usando unhexlify
-    dados_binario = binascii.unhexlify(texto_raw)
+    dados_binario = binascii.unhexlify(texto_hex)
 
     #definir escopo carro
     meu_carro = dados_binario[posicao_inicial : posicao_inicial + 57]
@@ -82,7 +83,7 @@ for i in range(len(df)):
     #gerar dicionario
 
     linha = {
-        'tempo': df.iloc[i]['time'],
+        'tempo': tempo,
         'last_lap_ms': last_lap_ms,
         'current_lap_ms': current_lap_ms,
         'setor1_ms': setor1_total,

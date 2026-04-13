@@ -6,9 +6,11 @@ df = pd.read_csv(r'caminho_data_time_trail.csv')
 
 tabela_vazia = []
 
-for i in range (len(df)):
-    texto_raw = df.iloc[i]['texto']
-    dados_binario = binascii.unhexlify(texto_raw)
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
+    dados_binario = binascii.unhexlify(texto_hex)
     #pb = personal best, ml = melhor da sessao, rv = rival
     ml = dados_binario[29:53]
     pb = dados_binario[53:77]
@@ -57,7 +59,7 @@ for i in range (len(df)):
     rv_valid = struct.unpack('<B', rv[23:24])[0]
 
     linha = {
-        'tempo': df.iloc[i]['time'],
+        'tempo': tempo,
         'ml_car_id': ml_car_id,
         'ml_team_id': ml_team_id,
         'ml_lap_time_MS': ml_lap_time_MS,

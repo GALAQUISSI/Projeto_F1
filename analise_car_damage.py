@@ -15,9 +15,11 @@ header = 29
 #no pacote damage o tamanho de bytes para cada carro é de 46 bytes
 posicao_inicial = 29 + (car_id * 46)
 
-for i in range(len(df)):
-  texto_raw = df.iloc[i]['raw_hex']
-  dados_binario = binascii.unhexlify(texto_raw)
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
+  dados_binario = binascii.unhexlify(texto_hex)
   meu_carro = dados_binario[posicao_inicial:posicao_inicial+46]
 
   tyres_wear = struct.unpack('<ffff', meu_carro[0:16])[0]
@@ -45,7 +47,7 @@ for i in range(len(df)):
   engine_seized = struct.unpack('<B', meu_carro[45:46])[0]
 
   linha = {
-   'tempo': df.iloc[i]['time'],
+   'tempo': tempo,
    'rl_tyre_wear' : tyres_wear[0],
    'rr_tyre_wear' : tyres_wear[1],
    'fl_tyre_wear' : tyres_wear[2],

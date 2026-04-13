@@ -17,11 +17,12 @@ car_id = linha_binaria[27]
 
 posicao_inicial = header + (car_id * 55)
 
-for i in range(len(df)):
-    #escopo raw_text
-    texto_raw = df.iloc[i]['raw_hex']
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
     #transformar em binario
-    dados_binario = binascii.unhexlify(texto_raw)
+    dados_binario = binascii.unhexlify(texto_hex)
 
     #escopo meu carro
     meu_carro = dados_binario[posicao_inicial : posicao_inicial + 55]
@@ -62,7 +63,7 @@ for i in range(len(df)):
     network_paused = struct.unpack('<B', meu_carro[54:55])[0]
 
     linha = {
-        'tempo' : df.iloc[i]['time'],
+        'tempo' : tempo,
         'ABS' : ABS,
         'fuel_mix' : fuel_mix,
         'front_brake_bias %' : front_brake_bias,

@@ -12,9 +12,11 @@ eventos = []
 code_with_id = {'FTLP', 'TMPT', 'RCWN', 'PENA', 'DTSV', 'SGSV'}
 code_without_id = {'SSTA', 'SEND', 'FLBK', 'RDFL', 'SGSV'}
 
-for i in range (len(df)):
-    dados = df.iloc[i]['raw_hex']
-    binario = binascii.unhexlify(dados)
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
+    binario = binascii.unhexlify(texto_hex)
     # tenho que transformar os dados de binario[29:33] em string e ver se bate
     # O ID DO CARRO É O BYTE 33
     #decodificar em ascii
@@ -27,7 +29,7 @@ for i in range (len(df)):
             car_id = binario[33]
 
     eventos.append({
-        'tempo': df.iloc[i]['time'],
+        'tempo': tempo,
         'codigo': codigo,
         'car_id': car_id,
     })

@@ -10,9 +10,12 @@ tabela_vazia = []
 neste pacote, não vou pegar todos os dados, logo nao sera tratado
 como intervalo e sim posição a posição na linha apos o header (0 - 28)
 '''''
-for i in range (len(df)):
-    texto_raw = df.iloc[i]['raw_hex']
-    dados_binario = binascii.unhexlify(texto_raw)
+
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
+    dados_binario = binascii.unhexlify(texto_hex)
 
     weather = dados_binario[29]
     track_temperature = dados_binario[30]
@@ -42,7 +45,7 @@ for i in range (len(df)):
         track_temp_change = air_temp_change = 2  # 2 significa estável
 
     linha = {
-        'tempo': df.iloc[i]['time'],
+        'tempo': tempo,
         'weather' : weather,
         'track_temperature' : track_temperature,
         'air_temperature' : air_temperature,

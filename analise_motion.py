@@ -18,11 +18,12 @@ car_id = linha_binaria[27]
 
 posicao_inicial = header + (car_id * 60)
 
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
 
-for i in range (len(df)):
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
     #transformar em binario
-    text_raw = df.iloc[i]['raw_hex']
-    dados_binario = binascii.unhexlify(text_raw)
+    dados_binario = binascii.unhexlify(texto_hex)
     #escopo
     meu_carro = dados_binario[posicao_inicial : posicao_inicial + 60]
 
@@ -67,7 +68,7 @@ for i in range (len(df)):
     roll = struct.unpack('<f', meu_carro[56:60])[0]
 
     linha = {
-        'tempo': df.iloc[i]['time'],
+        'tempo': tempo,
         'space_world_positionX': world_positionX,
         'space_world_positionY': world_positionY,
         'space_world_positionZ': world_positionZ,

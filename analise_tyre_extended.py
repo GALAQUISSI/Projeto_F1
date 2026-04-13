@@ -6,9 +6,12 @@ df = pd.read_csv(r'csv\tyre_extended.csv')
 
 tabela_vazia = []
 
-for i in range(len(df)):
-    texto_raw = df.iloc[i]['raw_hex']
-    dados_binario = binascii.unhexlify(texto_raw)
+lista_hex = df['raw_hex'].tolist()
+lista_tempo = df['time'].tolist()
+
+for texto_hex, tempo in zip(lista_hex, lista_tempo):
+
+    dados_binario = binascii.unhexlify(texto_hex)
     if dados_binario[27] != dados_binario[29]:
         continue
 
@@ -30,7 +33,7 @@ for i in range(len(df)):
     fitted = struct.unpack('<B', meu_pneu[9:10])[0]
 
     linha = {
-        'tempo': df.iloc[i]['time'],
+        'tempo': tempo,
         'actual_tyre': actual_tyre,
         'visual_tyre': visual_tyre,
         'wear_tyre': wear_tyre,
