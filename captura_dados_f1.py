@@ -19,9 +19,8 @@ files = {
     6: open("packets/telemetry.csv", "w", newline=""),
     7: open("packets/status.csv", "w", newline=""),
     10: open("packets/car_damage.csv", "w", newline=""),
-    11: open("packets/history.csv", "w", newline=""),
     12: open("packets/tyre_extended.csv", "w", newline=""),
-    14: open("packets/time_tria l.csv", "w", newline="")
+    14: open("packets/time_trial.csv", "w", newline="")
 }
 
 writers = {k: csv.writer(v) for k, v in files.items()}

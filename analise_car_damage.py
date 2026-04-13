@@ -45,6 +45,7 @@ for i in range(len(df)):
   engine_seized = struct.unpack('<B', meu_carro[45:46])[0]
 
   linha = {
+   'tempo': df.iloc[i]['time'],
    'rl_tyre_wear' : tyres_wear[0],
    'rr_tyre_wear' : tyres_wear[1],
    'fl_tyre_wear' : tyres_wear[2],

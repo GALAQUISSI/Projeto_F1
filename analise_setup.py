@@ -42,6 +42,7 @@ for i in range(len(df)):
     fuel_load = struct.unpack('<f', meu_carro[46:50])[0]
 
     linha = {
+        'tempo': df.iloc[i]['time'],
         'front_wing': front_wing,
         'rear_wing': rear_wing,
         'on_throttle': on_throttle,
