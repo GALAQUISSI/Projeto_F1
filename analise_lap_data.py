@@ -52,9 +52,9 @@ for i in range(len(df)):
     delta_leader_min_part = struct.unpack('<B', meu_carro[19:20])[0]
     #total leader:
     total_delta_leader = (delta_leader_min_part * 60000) + delta_leader_ms_part
-    lap_distance = struct.unpack('<f', meu_carro[20:24])
-    total_distance = struct.unpack('<f', meu_carro[24:28])
-    safetycar_delta = struct.unpack('<f', meu_carro[28:32])
+    lap_distance = struct.unpack('<f', meu_carro[20:24])[0]
+    total_distance = struct.unpack('<f', meu_carro[24:28])[0]
+    safetycar_delta = struct.unpack('<f', meu_carro[28:32])[0]
     car_position = struct.unpack('<B', meu_carro[32:33])[0]
     current_lap_num = struct.unpack('<B', meu_carro[33:34])[0]
     pit_status = struct.unpack('<B', meu_carro[34:35])[0]

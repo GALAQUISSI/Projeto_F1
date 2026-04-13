@@ -27,9 +27,9 @@ for i in range (len(df)):
             car_id = binario[33]
 
     eventos.append({
-        'tempo', df.iloc[i]['time'],
-        'codigo', codigo,
-        'car_id', car_id,
+        'tempo': df.iloc[i]['time'],
+        'codigo': codigo,
+        'car_id': car_id,
     })
 
 df_final = pd.DataFrame(eventos)
