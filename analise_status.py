@@ -2,7 +2,7 @@ import pandas as pd
 import binascii
 import struct
 
-df = pd.read_csv(r"C:\Users\User\Projeto_F1\dados_interlagos_170226\status.csv")
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\status.csv')
 
 tabela_vazia = []
 
@@ -97,4 +97,4 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
     tabela_vazia.append(linha)
 
 df_final = pd.DataFrame(tabela_vazia)
-df_final.to_csv("status_data_interlagos_170226.csv", index = False)
+df_final.to_csv("translated_status.csv", index = False)

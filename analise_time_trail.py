@@ -2,7 +2,8 @@ import pandas as pd
 import binascii
 import struct
 
-df = pd.read_csv(r'caminho_data_time_trail.csv')
+#neste teste nao foi usado time_trial -> csv vazio
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\time_trial.csv')
 
 tabela_vazia = []
 
@@ -101,4 +102,4 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
     tabela_vazia.append(linha)
 
 df_final = pd.DataFrame(tabela_vazia)
-df_final.to_csv('caminho_time_trail.csv', index=False)
+df_final.to_csv('translated_time_trail.csv', index=False)

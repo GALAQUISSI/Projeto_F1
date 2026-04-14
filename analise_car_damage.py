@@ -3,7 +3,7 @@ import binascii
 import struct
 
 #uso de arquivo aleatorio, depois sera feita a captura dos dados para transformação
-df = pd.read_csv(r'C:\Projeto\car_damage.csv')
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\car_damage.csv')
 
 tabela_vazia = []
 
@@ -22,10 +22,10 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
   dados_binario = binascii.unhexlify(texto_hex)
   meu_carro = dados_binario[posicao_inicial:posicao_inicial+46]
 
-  tyres_wear = struct.unpack('<ffff', meu_carro[0:16])[0]
-  tyres_damage = struct.unpack('<BBBB', meu_carro[16:20])[0]
-  brakes_damage = struct.unpack('<BBBB', meu_carro[20:24])[0]
-  tyre_blisters = struct.unpack('<BBBB', meu_carro[24:28])[0]
+  tyres_wear = struct.unpack('<ffff', meu_carro[0:16])
+  tyres_damage = struct.unpack('<BBBB', meu_carro[16:20])
+  brakes_damage = struct.unpack('<BBBB', meu_carro[20:24])
+  tyre_blisters = struct.unpack('<BBBB', meu_carro[24:28])
   #fl = front left, fr_ = front right
   fl_wing_damage = struct.unpack('<B', meu_carro[28:29])[0]
   fr_wing_damage = struct.unpack('<B', meu_carro[29:30])[0]
@@ -87,4 +87,4 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
   tabela_vazia.append(linha)
 
 df_final = pd.DataFrame(tabela_vazia)
-df_final.to_csv("car_damage.csv", index=False)
+df_final.to_csv("translated_car_damage.csv", index=False)

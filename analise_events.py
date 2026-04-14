@@ -2,7 +2,7 @@ import pandas as pd
 import struct
 import binascii
 
-df = pd.read_csv(r'events.csv')
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\events.csv')
 
 #tabela para fazer o append
 eventos = []
@@ -28,11 +28,11 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
         if codigo in code_with_id:
             car_id = binario[33]
 
-    eventos.append({
-        'tempo': tempo,
-        'codigo': codigo,
-        'car_id': car_id,
-    })
+        eventos.append({
+            'tempo': tempo,
+            'codigo': codigo,
+            'car_id': car_id,
+        })
 
 df_final = pd.DataFrame(eventos)
-df_final.to_csv('eventos_data.csv', index=False)
+df_final.to_csv('translated_eventos_data.csv', index=False)
