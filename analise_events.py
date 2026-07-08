@@ -2,7 +2,7 @@ import pandas as pd
 import struct
 import binascii
 
-df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\events.csv')
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\treino_livre_interlagos_180626\events.csv')
 
 #tabela para fazer o append
 eventos = []
@@ -35,4 +35,4 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
         })
 
 df_final = pd.DataFrame(eventos)
-df_final.to_csv('translated_eventos_data.csv', index=False)
+df_final.to_csv('translated_eventos_data_treino_livre.csv', index=False)

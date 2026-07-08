@@ -3,7 +3,7 @@ import binascii
 import struct
 
 #uso de arquivo aleatorio, depois sera feita a captura dos dados para transformação
-df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\car_damage.csv')
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\treino_livre_interlagos_180626\car_damage.csv')
 
 tabela_vazia = []
 
@@ -87,4 +87,4 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
   tabela_vazia.append(linha)
 
 df_final = pd.DataFrame(tabela_vazia)
-df_final.to_csv("translated_car_damage.csv", index=False)
+df_final.to_csv("translated_car_damage_treino_livre.csv", index=False)

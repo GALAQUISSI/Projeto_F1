@@ -2,7 +2,7 @@ import pandas as pd
 import binascii
 import struct
 
-df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\status.csv')
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\treino_livre_interlagos_180626\status.csv')
 
 tabela_vazia = []
 

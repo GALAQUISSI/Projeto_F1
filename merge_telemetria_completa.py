@@ -28,4 +28,4 @@ for df in dados:
         direction = 'backward'
     )
 
-telemetria_completa.to_csv('telemetria_completa.csv', index=False)
+telemetria_completa.to_csv('telemetria_completa_130426.csv', index=False)

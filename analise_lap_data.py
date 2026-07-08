@@ -4,7 +4,7 @@ import binascii
 
 
 #esse caminho foi usado no notebook -> generalizar depois
-df = pd.read_csv(r'C:\Users\User\Projeto_F1\dados_interlagos_130426\lap.csv')
+df = pd.read_csv(r'C:\Users\User\Projeto_F1\treino_livre_interlagos_180626\lap.csv')
 
 #armazenar valores
 tabela_vazia = []
@@ -119,4 +119,4 @@ for texto_hex, tempo in zip(lista_hex, lista_tempo):
     tabela_vazia.append(linha)
 
 df_final = pd.DataFrame(tabela_vazia)
-df_final.to_csv("translated_lap.csv", index=False)
+df_final.to_csv("translated_lap_treino_livre.csv", index=False)
