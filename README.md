@@ -1,5 +1,5 @@
 # Projeto_F1
-F1 Telemetry Data Analysis & Virtual Race Engineer
+F1 Telemetry Data Analysis & Virtual Race
 ---
 ## Overview
 This project focuses on capturing, decoding, and analyzing telemetry data from the game F1 25 in order to build a data-driven environment for performance analysis.
