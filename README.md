@@ -170,5 +170,5 @@ The goal is to explore how telemetry data can be captured, processed, and analyz
 
 
 # Status:
-## Project currently in data analyse.
+## Project currently: Analyzing results.
 
