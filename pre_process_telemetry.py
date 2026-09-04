@@ -5,14 +5,8 @@ import numpy as np
 #apos cada etapa, a etapa vai ficar comentada para nao refazer cada passo
 
 
-'''''
-PIPELINE:
-'''''
-
-#retirar linhas com tempo acima (ruído)
-
 df = pd.read_csv(r'C:\Users\User\Projeto_F1\telemetria_completa.csv')
-#print(df.groupby('num_current_lap')['last_lap_ms'].max())
+
 df_copia = df.copy()
 voltas_removidas = [3,5,10,13,16,19,22,27,28,31,36]
 df_copia = df_copia[(df_copia['lap_distance'] >= 0) & (~df_copia['num_current_lap'].isin(voltas_removidas))]
@@ -28,11 +22,21 @@ df_copia['setores_bateria'] = pd.cut(df_copia['lap_distance'], bins = intervalos
                                      include_lowest = True) # right = true (default)
 
 #criar coluna de delta para cada setor
-# ers_battery %, ers_deploy_mode, ers_deployed (mas ta meio estranho bateria ta em 71 e o gasto ta em 24)
-# eu tenho que fazer o mesmo cut so que usando battery como divisao.
+
 
 df_dummies = pd.get_dummies(df_copia['setores_bateria'], prefix = 'setor_bateria_', drop_first = True, dtype = int)
 df_copia = pd.concat([df_copia, df_dummies], axis = 1)
+
+#fazer dummies para variaveis categoricas
+
+df_dummies_tyre = pd.get_dummies(df_copia['actual_compound_tyre'], prefix = 'actual_compound_tyre_', drop_first = True, dtype = int)
+df_copia = pd.concat([df_copia, df_dummies_tyre], axis = 1)
+
+df_dummies_ers = pd.get_dummies(df_copia['ers_deploy_mode'], prefix = 'ers_deploy_mode_', drop_first = True, dtype = int)
+df_copia = pd.concat([df_copia, df_dummies_ers], axis = 1)
+
+df_dummies_fuel = pd.get_dummies(df_copia['fuel_mix'], prefix = 'type_fuel_mix', drop_first = True, dtype = int)
+df_copia = pd.concat([df_copia, df_dummies_fuel], axis = 1)
 
 df_copia = df_copia.sort_values(by = ['num_current_lap', 'current_lap_ms'])
 
@@ -47,6 +51,7 @@ df_filtrado = df_copia.groupby(['num_current_lap', 'setores_bateria']).agg(
     freio_md = ('freio', 'mean'),
     freio_max = ('freio', 'max'),
     rpm_md = ('rpm', 'mean'),
+    num_current_lap = ('num_current_lap', lambda x : x.iloc[0]),
     temp_motor_md = ('temperatura_motor', 'mean'),
     temp_freio_RL_md = ('temp_freio_RL', 'mean'),#
     temp_freio_RR_md = ('temp_freio_RR', 'mean'),#
@@ -62,19 +67,18 @@ df_filtrado = df_copia.groupby(['num_current_lap', 'setores_bateria']).agg(
     temp_int_pneu_FR_md = ('temp_int_pneu_FR', 'mean'),
     pressao_pneu_RL_md = ('pressao_pneu_RL', 'mean'),
     pressao_pneu_RR_md = ('pressao_pneu_RR', 'mean'),
-    pressao_pneu_FL_md = ('pressao_pneu_FL', 'mean'), #
-    pressao_pneu_FR_md = ('pressao_pneu_FR', 'mean'), #
-    g_force_lateral_md = ('g_force_lateral', 'mean'),
-    g_force_longitudinal_md = ('g_force_longitudinal', 'mean'),
-    g_force_vertical_md = ('g_force_vertical', 'mean'),
-    pitch_md = ('pitch', 'mean'),
-    roll_md = ('roll', 'mean'),
-    yaw_md = ('yaw', 'mean'),
-    num_current_lap = ('num_current_lap', lambda x : x.iloc[0]),
-    actual_compound_tyre = ('actual_compound_tyre', lambda x : x.iloc[0]),
-    ers_deploy_mode = ('ers_deploy_mode', lambda x : x.iloc[0]),
+    pressao_pneu_FL_md = ('pressao_pneu_FL', 'mean'),
+    pressao_pneu_FR_md = ('pressao_pneu_FR', 'mean'),
+
+    #nao sei se gera ruido (testar)
+    #g_force_lateral_md = ('g_force_lateral', 'mean'),
+    #g_force_longitudinal_md = ('g_force_longitudinal', 'mean'),
+    #g_force_vertical_md = ('g_force_vertical', 'mean'),
+    #pitch_md = ('pitch', 'mean'),
+    #roll_md = ('roll', 'mean'),
+    #yaw_md = ('yaw', 'mean'),
+
     delta_fuel_in_tank = ('fuel_in_tank', lambda x : x.iloc[-1] - x.iloc[0]),
-    fuel_mix = ('fuel_mix', lambda x : x.iloc[0]),
     tyre_age_laps = ('tyre_age_laps', lambda x : x.iloc[0]),
     fl_brake_damage_md = ('fl_brake_damage', 'mean'),
     fl_tyre_damage_md = ('fl_tyre_damage', 'mean'),
@@ -95,9 +99,7 @@ df_filtrado = df_copia.groupby(['num_current_lap', 'setores_bateria']).agg(
     sidepod_damage_max = ('sidepod_damage', 'max'),
 )
 
-df_filtrado.to_csv('df_limpo_reg.csv', index=False)
-
-
+df_filtrado.to_csv('df_limpo_reg_v2.csv', index=False)
 
 
 

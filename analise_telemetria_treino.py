@@ -43,7 +43,52 @@ Processos:
 '''''
 
 dist_per_lap = df[df['lap_distance'] > 0].groupby('num_current_lap')['lap_distance'].agg(['min','max'])
-print(dist_per_lap)
+#print(dist_per_lap)
+
+import numpy as np
+
+target = df['current_lap_ms']
+lista = np.array(df.columns)
+
+df2 = pd.read_csv(r'C:\Users\User\Projeto_F1\df_limpo_reg.csv')
+list1 = np.array(df2.columns)
+print(list1)
+
+'''''
+ABS
+engine_power_ice
+engine_power_mguk
+front_brake_bias %
+fuel_capacity
+fuel_in_tank
+fuel_mix
+fuel_remaining_laps
+idle_rpm
+pit_limiter_status
+tyre_age_laps
+visual_compound_tyre
+diffuser_damage
+engine_CE_wear
+engine_ES_wear
+engine_ICE_wear
+engine_MGUH_wear
+engine_MGUK_wear
+engine_TC_wear
+engine_blown
+engine_damage
+engine_seized
+ers_fault
+
+
+
+actual_tyre
+fitted
+lap_delta_time
+life_span
+usable_life
+visual_tyre
+wear_tyre
+'''''
 
 '''''
 maior = 4294.394531
