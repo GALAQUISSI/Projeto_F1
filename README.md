@@ -94,16 +94,12 @@ Visualization tools may include:
 
 ## Machine Learning
 Future stages of the project aim to incorporate machine learning techniques to:
-- Predict lap times
-- Identify optimal driving patterns
-- Detect performance losses
-- Compare drivers or sessions
+- Predict sectors times
+- Identify optimal features for fastest laps
 
-Possible models include:
+Included Models:
 - Regression models
 - Time-series analysis
-- Neural networks for telemetry patterns
-
 
 ## Virtual Race Engineer
 Based on the telemetry analysis and machine learning models, a future goal of the project is to build a Virtual Race Engineer assistant capable of:
